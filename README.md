@@ -15,8 +15,6 @@
 예: H(5) = -4 라면, ReLU를 통과하면 0이 되어 정보가 사라지지만,  
 H(x) = F(x) + x 구조에서는 입력 x가 그대로 더해지므로 **정보 손실 없이 학습이 계속 유지될 수 있습니다.**
 
----
-
 #### Identity Mapping by Shortcuts
 
 - ResNet의 핵심 구조인 **Residual Block**에서는 입력 x를 그대로 출력에 더해주는 **skip connection (shortcut)** 을 사용합니다.
