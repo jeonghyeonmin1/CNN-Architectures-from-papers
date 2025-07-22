@@ -42,7 +42,7 @@ H(x) = F(x) + x 구조에서는 입력 x가 그대로 더해지므로 **정보 �
 ### Inception
 
 #### InceptionV1
-![Inception_module](./images/GoogleNet(InceptionV1).png)
+![GoogleNet](./images/GoogleNet.png)
 
 ##### Inception Module
 - Inception 모듈은 하나의 layer 안에서 여러 스케일의 특징을 동시에 추출할 수 있도록 설계된 구조입니다.
