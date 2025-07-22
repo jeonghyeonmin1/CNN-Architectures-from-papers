@@ -36,3 +36,46 @@ H(x) = F(x) + x 구조에서는 입력 x가 그대로 더해지므로 **정보 �
   2. **Pointwise Convolution (1x1)**: 각 위치에서 채널 간 정보를 **선형 결합**하여 출력 생성
 
 - 이 방식은 계산량을 크게 줄이면서도 성능을 유지할 수 있어, **모바일 기기나 경량 모델**에서 매우 효과적입니다.
+
+---
+
+### Inception
+
+#### InceptionV1
+![Inception_module](./images/GoogleNet(InceptionV1).png)
+
+##### Inception Module
+- Inception 모듈은 하나의 layer 안에서 여러 스케일의 특징을 동시에 추출할 수 있도록 설계된 구조입니다.
+- 각 모듈은 아래와 같은 병렬적인 branch로 구성됩니다:
+  1. ** 1x1 conv ** 
+  2. ** 1x1 -> 3x3 conv **
+  3. ** 1x1 -> 5x5 conv **
+  4. ** 3x3 maxpool -> 1x1 conv **
+  
+> 이 병렬 출력을 채널 차원으로 concat하여 다음 layer로 전달합니다.
+
+![Inception_module](./images/Inception_module.png)
+
+
+#### Main Idea
+1. 다양한 스케일의 특징 추출
+ > 이미지에서 다양한 크기의 edge, texture 등을 포착할 수 있게 구성
+2. 연산 효율성 증가
+ > 1x1 conv을 사용하여 채널 수를 줄인 뒤, 연산량이 많은 3x3, 5x5 conv를 적용 -> 연산량 감소
+3. 네트워크의 width와 depth 확장
+ > 병렬 branch를 통해 네트워크의 폭을 늘리고, Inception 모듈을 반복적으로 쌓아 깊이도 확보
+
+#### Auxiliary Classifier(보조 분류기)
+- InceptionV1에서는 깊은 네트워크의 학습 문제인 gradient vanishing을 완화하기 위해 중간 레이어에
+  보조 분류기를 삽입하였습니다.
+
+##### 목적(InceptionV1 기준)
+- 초반 레이어까지 gradient가 잘 전파되도록 유도
+
+#### 한계 및 변화(InceptionV2 이후)
+- 실험 결과, 초반부 auxiliary classifier는 gradient 전파에 거의 기여하지 않는다는 것이 밝혀져
+  초반부 auxiliary classifier를 제거함
+
+- 대신, 중반부 auxiliary classifier는 regularization 역할을 수행함이 확인됨
+ > Dropout, Batchnorm을 포함한 auxiliary classifier는 과적합 완화와 일반화 성능 향상에 도움
+
